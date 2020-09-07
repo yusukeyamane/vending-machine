@@ -3,7 +3,7 @@ class Beverage
   attr_reader :name, :price, :tax
 
   def initialize(args)
-    @tax = args.fetch(:tax, 10)
+    @tax = args.fetch(:tax, 0.1)
     @name = args.fetch(:name, 'サイダー')
     @price = args.fetch(:price, 120)
   end
@@ -74,7 +74,7 @@ class Beverage
   attr_reader :name, :price, :tax
 
   def initialize(args)
-    @tax = args.fetch(:tax, 10)
+    @tax = args.fetch(:tax, 0.1)
     @name = args.fetch(:name, 'サイダー')
     @price = args.fetch(:price, 120)
   end
