@@ -18,23 +18,10 @@ class VendingMachine
     @products = products
   end
 
-  def serve_item
+  def transaction
     display_anounce
     product = take_order
-    p "#{product.name}が選択されました"
-
-    # 適正金額が受け取れるまで繰り返す。
-    while true do
-      payment = take_money
-      charge = calc_change(payment, product.price)
-      if charge >= 0
-        break
-      else
-        puts "入力金額が不足しています。金額を再入力してください。"
-      end
-    end
-
-    puts "お釣りは#{charge}円です。ご利用ありがとうございました。"
+    serve_item(product)
   end
 
   private
@@ -47,11 +34,25 @@ class VendingMachine
   end
 
   def take_order
-    @products[gets.to_i]
+    product = @products[gets.to_i]
+    puts "#{product}が選択されました"
+    product
   end
 
-  def take_money
-    gets.to_i
+  def serve_item(product)
+    # 適正金額が受け取れるまで繰り返す。
+    while true do
+      payment = gets.to_i
+      charge = calc_change(payment, product.price)
+
+      if charge >= 0
+        break
+      else
+        puts "入力金額が不足しています。金額を再入力してください。"
+      end
+    end
+
+    puts "お釣りは#{charge}円です。ご利用ありがとうございました。"
   end
 
   def calc_change(payment, price)
@@ -68,4 +69,4 @@ beverages = [
 @beverages = beverages.map{ |b| Beverage.new(name: b[:name], price: b[:price]) }
 @beverages << Beverage.new({})
 vm = VendingMachine.new(@beverages)
-vm.serve_item
+vm.transaction
