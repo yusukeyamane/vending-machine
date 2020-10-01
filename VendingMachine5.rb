@@ -65,7 +65,9 @@ class VendingMachine
   end
 
   def take_order
-    products[gets.to_i]
+    selected = products[gets.to_i]
+    puts "#{selected.name}が選択されました。必要金額は#{selected.price}円です。"
+    selected
   end
 
   def take_money
