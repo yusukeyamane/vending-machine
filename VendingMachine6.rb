@@ -27,7 +27,7 @@ class Ticket
   end
 end
 
-class VendingMachineBase
+class TicketVendingMachine
   def initialize(products)
     @products = products
   end
@@ -75,7 +75,16 @@ class VendingMachineBase
   end
 end
 
-class TicketVendingMachine < VendingMachineBase
+class VendingMachine
+  def initialize(products)
+    @products = products
+  end
+
+  def transaction
+    display_anounce
+    product = take_order
+    serve_item(product)
+  end
 
   private
 
@@ -87,9 +96,32 @@ class TicketVendingMachine < VendingMachineBase
       puts "[#{i}] 行き先：#{product.name} 金額：#{product.price}円"
     end
   end
-end
 
-class VendingMachine < VendingMachineBase; end
+  def take_order
+    selected = products[gets.to_i]
+    puts "#{selected.name}が選択されました。必要金額は#{selected.price}円です。"
+    selected
+  end
+
+  def serve_item(product)
+    # 適正金額が受け取れるまで繰り返す。
+    while true do
+      payment = gets.to_i
+      charge = calc_change(payment, product.price)
+      if charge >= 0
+        break
+      else
+        puts "入力金額が不足しています。金額を再入力してください。"
+      end
+    end
+
+    puts "お釣りは#{charge}円です。ご利用ありがとうございました。"
+  end
+
+  def calc_change(payment, price)
+    payment - price
+  end
+end
 
 # beverages = [
 #   { name: 'コーラ', price: 120 },
