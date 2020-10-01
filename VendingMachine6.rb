@@ -1,4 +1,5 @@
 # 6章問題用コード（叩き）
+## 飲み物の自動販売機の他に、切符の販売にも対応するコードが必要になったと想定。TicketクラスとTicketVendingMachineクラスの2つを追加しなければならない
 class Beverage
   attr_reader :name, :price, :tax
 
