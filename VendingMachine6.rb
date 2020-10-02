@@ -16,7 +16,7 @@ class Beverage
   end
 end
 
-class Beverage
+class Tabaco
   @@tax = 0.1
 
   attr_reader :name
