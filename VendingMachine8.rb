@@ -1,8 +1,8 @@
 class Products
-  attr_reader :parts
+  attr_reader :products
 
-  def initialize(parts)
-    @parts = parts
+  def initialize(products)
+    @parts = products
   end
 end
 

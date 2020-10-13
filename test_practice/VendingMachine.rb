@@ -14,14 +14,15 @@ class Beverage
 end
 
 class VendingMachine
+  attr_reader :products
+
   def initialize(products)
     @products = products
   end
 
   def transaction
     display_anounce
-    product = take_order
-    serve_item(product)
+    take_order
   end
 
   def display_anounce
@@ -32,25 +33,10 @@ class VendingMachine
   end
 
   def take_order
-    product = @products[gets.to_i]
-    puts "#{product}が選択されました"
+    input = rand(2)
+    product = @products[input]
+    puts "#{product.name}が選択されました"
     product
-  end
-
-  def serve_item(product)
-    # 適正金額が受け取れるまで繰り返す。
-    while true do
-      payment = gets.to_i
-      charge = calc_change(payment, product.price)
-
-      if charge >= 0
-        break
-      else
-        puts "入力金額が不足しています。金額を再入力してください。"
-      end
-    end
-
-    puts "お釣りは#{charge}円です。ご利用ありがとうございました。"
   end
 
   def calc_change(payment, price)
