@@ -14,8 +14,6 @@ class Beverage
 end
 
 class VendingMachine
-  attr_reader :products
-
   def initialize(products)
     @products = products
   end
@@ -25,6 +23,10 @@ class VendingMachine
     take_order
   end
 
+  private
+
+  attr_reader :products
+
   def display_anounce
     puts '購入したい商品を以下から選んで、金額を入力してください'
     @products.each_with_index do |product, i|
@@ -33,6 +35,7 @@ class VendingMachine
   end
 
   def take_order
+    # 商品は自動で選択される
     input = rand(2)
     product = @products[input]
     puts "#{product.name}が選択されました"
