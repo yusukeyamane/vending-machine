@@ -1,3 +1,15 @@
+class SalesManeger
+  attr_reader :net_sales
+
+  def initialize
+    @net_sales = 0
+  end
+
+  def update(product)
+    @net_sales += product.price
+  end
+end
+
 class Beverage
   @@tax = 0.1
 
@@ -14,18 +26,21 @@ class Beverage
 end
 
 class VendingMachine
-  def initialize(products)
+  def initialize(products, input, sales_maneger)
     @products = products
+    @input = input
+    @sales_maneger = sales_maneger
   end
 
   def transaction
     display_anounce
-    take_order
+    product = take_order
+    sales_maneger.update(product)
   end
 
   private
 
-  attr_reader :products
+  attr_reader :products, :sales_maneger
 
   def display_anounce
     puts '購入したい商品を以下から選んで、金額を入力してください'
@@ -35,9 +50,8 @@ class VendingMachine
   end
 
   def take_order
-    # 商品は自動で選択される
-    input = rand(2)
-    product = @products[input]
+    # ドリンクはランダムに選ばれる
+    product = @products[@input]
     puts "#{product.name}が選択されました"
     product
   end
