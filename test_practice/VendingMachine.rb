@@ -1,4 +1,4 @@
-class SalesManeger
+class SalesManager
   attr_reader :net_sales
 
   def initialize
@@ -12,7 +12,6 @@ end
 
 class Beverage
   @@tax = 0.1
-
   attr_reader :name, :price
 
   def initialize(args)
@@ -25,7 +24,23 @@ class Beverage
   end
 end
 
+class Tabaco
+  @@tax = 0.6
+  attr_reader :name, :price, :tax
+
+  def initialize(args)
+    @name = args.fetch(:name, 'テックタバコ')
+    @price = args.fetch(:price, 300)
+  end
+
+  def price
+    @price + (@price * @@tax).floor
+  end
+end
+
 class VendingMachine
+  attr_reader :products
+
   def initialize(products, input, sales_maneger)
     @products = products
     @input = input
@@ -44,13 +59,12 @@ class VendingMachine
 
   def display_anounce
     puts '購入したい商品を以下から選んで、金額を入力してください'
-    @products.each_with_index do |product, i|
+    products.each_with_index do |product, i|
       puts "[#{i}] 商品名：#{product.name} 税込み価格：#{product.price}円"
     end
   end
 
   def take_order
-    # ドリンクはランダムに選ばれる
     product = @products[@input]
     puts "#{product.name}が選択されました"
     product
