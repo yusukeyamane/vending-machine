@@ -12,6 +12,8 @@ module ProductInterfaceTest
 end
 
 class BevarageTest < Minitest::Test
+  include ProductInterfaceTest
+
   def setup
     @coke = @object = Beverage.new(name: 'コーラ', price: 120)
   end
