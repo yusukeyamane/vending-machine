@@ -53,11 +53,10 @@ class Ticket < Product
   end
 end
 
-class VendingMachine
-  def initialize(products, input, sales_maneger)
+class VendingMachineBase
+  def initialize(products, input)
     @products = products
     @input = input
-    @sales_maneger = sales_maneger
   end
 
   def transaction
@@ -90,7 +89,7 @@ end
 
 class VendingMachine < VendingMachineBase; end
 
-class TicketVendingMachine < VendingMachineBase;
+class TicketVendingMachine < VendingMachineBase
   private
 
   def display_anounce
